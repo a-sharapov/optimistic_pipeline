@@ -1,4 +1,4 @@
-import { optimisticPipe } from "pipeline";
+import optimisticPipe from "pipeline";
 
 // Assets
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

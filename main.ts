@@ -1,4 +1,4 @@
-import { optimisticPipe } from "pipeline";
+import pipe from "pipeline";
 import { Utils } from "shared/utils";
 
 const doFetch = async ({ 0: url, 1: data }: [string, any]): Promise<any> => {
@@ -17,7 +17,7 @@ const doFetch = async ({ 0: url, 1: data }: [string, any]): Promise<any> => {
 };
 
 const run = async () => {
-  const result = await optimisticPipe(
+  const result = await pipe(
     doFetch,
     doFetch,
     doFetch,

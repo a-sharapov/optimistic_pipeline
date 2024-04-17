@@ -1,13 +1,6 @@
 import { Utils } from "shared/utils";
 
 export namespace Pipeline {
-  /**
-   * λ → () : Creates a higher order function that wraps the provided function with try-catch functionality.
-   *
-   * @param {Function} fn - The function to be executed within the try-catch block.
-   * @param {Function} handleLog - Optional function to handle logging errors.
-   * @return {Function} A function that executes the provided function within a try-catch block.
-   */
   const wrapTryCatch =
     (fn: (arg: any) => any, handleCatch?: (error: unknown) => void) =>
     (arg: any) => {
@@ -21,12 +14,6 @@ export namespace Pipeline {
       return result || arg;
     };
 
-  /**
-   * λ → () : Creates a higher order function that logs an error message and returns the previous value.
-   *
-   * @param {unknown} previous - The previous value.
-   * @return {Function} - A function that logs an error message and returns the previous value.
-   */
   const createHandleCatch =
     (handleLog: (error: string) => void) =>
     <T extends unknown>(index: number, previous: T) =>
@@ -50,19 +37,6 @@ export namespace Pipeline {
 
   const DEFAULT_LOG_HANDLER = createHandleCatch(Utils.log("error"));
 
-  /**
-   * λ → () : Creates a pipeline function that applies a series of functions (including async) to a payload.
-   *
-   * @param {Array<(argument: any) => any>} fns - The functions to apply to the payload.
-   * @param {T} payload - The initial payload.
-   * @return {unknown} The result of applying the functions to the payload.
-   *
-   * @example
-   * const pipelineResult = pipe(
-   *   (payload: number) => payload + 1,
-   *   (payload: number) => payload * 2
-   * )(1);
-   */
   export const createPipelineWithErrorHandler =
     (handleCatch = DEFAULT_LOG_HANDLER) =>
     <T>(...fns: Array<(argument: any) => any>) =>
